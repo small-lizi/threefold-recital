@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkg01q1vk23m"]
+
+[ext_resource type="Script" uid="uid://bhlc8v5nqxvxy" path="res://assets/script/zhizuozu.gd" id="1_leobo"]
+[ext_resource type="SpriteFrames" uid="uid://erdx41fa3s0p" path="res://assets/animated/zhizuozu.tres" id="2_wpmaq"]
+[ext_resource type="Texture2D" uid="uid://d0trf6404nbnl" path="res://assets/img/staff/staffzohar_chair02.png" id="3_kol5i"]
+[ext_resource type="Texture2D" uid="uid://470ox64p54ry" path="res://assets/img/staff/staffzohar_sth03.png" id="4_f4cet"]
+[ext_resource type="Texture2D" uid="uid://csf8h67f5laff" path="res://assets/img/staff/staffzohar_sth01.png" id="5_3lgob"]
+[ext_resource type="Texture2D" uid="uid://cd7h6k5u61lt3" path="res://assets/img/staff/staffyama_sth02.png" id="6_2iech"]
+
+[node name="zhizuozu" type="Node2D"]
+script = ExtResource("1_leobo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(80.9, 85.9573)
+scale = Vector2(0.259667, 0.259667)
+sprite_frames = ExtResource("2_wpmaq")
+animation = &"lang"
+autoplay = "idel"
+frame_progress = 0.947583
+
+[node name="zohar" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(70, 89.5011)
+scale = Vector2(0.310606, 0.310606)
+texture = ExtResource("3_kol5i")
+
+[node name="computer" type="Sprite2D" parent="zohar"]
+z_index = 1
+position = Vector2(106.244, -111.077)
+texture = ExtResource("4_f4cet")
+
+[node name="table" type="Sprite2D" parent="zohar"]
+z_index = 1
+position = Vector2(92.122, 113.014)
+scale = Vector2(0.793119, 0.85396)
+texture = ExtResource("5_3lgob")
+
+[node name="bulu" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(92.586, 138.5)
+scale = Vector2(0.210122, 0.155797)
+texture = ExtResource("5_3lgob")
+
+[node name="lang" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(77.604, 54.128)
+scale = Vector2(0.23159, 0.23159)
+texture = ExtResource("6_2iech")
+
+[node name="table" type="Sprite2D" parent="lang"]
+position = Vector2(38.8397, 306.431)
+scale = Vector2(1.17263, 1.12348)
+texture = ExtResource("5_3lgob")

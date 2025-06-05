@@ -1,0 +1,45 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Threefold Recital"
+run/main_scene="uid://bpouma1dxe8hi"
+config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+boot_splash/image="uid://ct1metjg10g8y"
+config/icon="uid://ct1metjg10g8y"
+config/windows_native_icon="res://assets/img/gameIcon.ico"
+
+[autoload]
+
+SceneManager="*res://autoload/scene_manager.gd"
+AutoUpdater="*res://autoload/auto_updater.gd"
+Hidewindow="*res://autoload/hidewindow.cs"
+
+[display]
+
+window/size/viewport_width=165
+window/size/viewport_height=160
+window/size/resizable=false
+window/size/borderless=true
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+window/initial_position/type="center-bottom"
+
+[dotnet]
+
+project/assembly_name="Threefold Recital"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+viewport/transparent_background=true

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://0kyckpgr0ip5"]
+
+[ext_resource type="Script" uid="uid://bk6t1hap3ctrw" path="res://assets/script/linghu.gd" id="1_gq6yu"]
+[ext_resource type="SpriteFrames" uid="uid://cfnolwihbgyuo" path="res://assets/animated/linghu.tres" id="2_gq6yu"]
+
+[node name="linghu" type="Node2D"]
+script = ExtResource("1_gq6yu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(91, 97)
+scale = Vector2(0.226478, 0.226478)
+sprite_frames = ExtResource("2_gq6yu")
+animation = &"knife"
+autoplay = "idel"

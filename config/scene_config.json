@@ -1,0 +1,36 @@
+{
+	"scenes": {
+		"1": {
+			"path": "res://assets/scene/jingfan.tscn",
+			"description": "净饭"
+		},
+		"2": {
+			"path": "res://assets/scene/sanbao.tscn",
+			"description": "三宝"
+		},
+		"3": {
+			"path": "res://assets/scene/piyuexiu.tscn",
+			"description": "皮月休"
+		},
+		"4": {
+			"path": "res://assets/scene/tangyifu.tscn",
+			"description": "堂邑父"
+		},
+		"5":{
+			"path": "res://assets/scene/mengyin.tscn",
+			"description": "孟演"
+		},
+		"6": {
+			"path": "res://assets/scene/erye.tscn",
+			"description": "二爷"
+		},
+		"7": {
+			"path": "res://assets/scene/linghu.tscn",
+			"description": "令狐两千"
+		},
+		"8": {
+			"path": "res://assets/scene/zhizuozu.tscn",
+			"description": "制作组"
+		}
+	}
+} 

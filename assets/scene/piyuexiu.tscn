@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bum1bb1fm07vw"]
+
+[ext_resource type="Script" uid="uid://bwedr3pm4310x" path="res://assets/script/piyuexiu.gd" id="1_xudb1"]
+[ext_resource type="SpriteFrames" uid="uid://cyaaor8jdiq4u" path="res://assets/animated/piyuexiu.tres" id="2_xudb1"]
+[ext_resource type="Texture2D" uid="uid://01buuosq6gau" path="res://assets/img/piyuexiu/steelbase_theater_01.png" id="3_02oef"]
+
+[node name="piyuexiu" type="Node2D"]
+script = ExtResource("1_xudb1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.308772, 0.308772)
+sprite_frames = ExtResource("2_xudb1")
+animation = &"find"
+autoplay = "idel"
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, 16.1932)
+
+[node name="steelbase" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(-3.8743e-07, 46)
+scale = Vector2(0.836735, 0.52349)
+texture = ExtResource("3_02oef")

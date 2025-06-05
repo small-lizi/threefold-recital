@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpouma1dxe8hi"]
+
+[ext_resource type="Script" uid="uid://bivi8fj032srt" path="res://assets/script/jingfan.gd" id="1_3gfbq"]
+[ext_resource type="SpriteFrames" uid="uid://tnj6cl3haet4" path="res://assets/animated/jinfan.tres" id="1_uuewd"]
+
+[node name="Jingfan" type="Node2D"]
+script = ExtResource("1_3gfbq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.308772, 0.308772)
+sprite_frames = ExtResource("1_uuewd")
+animation = &"idel"
+autoplay = "idel"
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, 16.1932)

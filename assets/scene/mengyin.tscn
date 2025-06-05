@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjhsx73e2hxgo"]
+
+[ext_resource type="Script" uid="uid://c2ilchribb6i7" path="res://assets/script/mengyin.gd" id="1_y0ec8"]
+[ext_resource type="SpriteFrames" uid="uid://tj3owbklp35k" path="res://assets/animated/mengyin.tres" id="2_y0ec8"]
+
+[node name="mengyin" type="Node2D"]
+script = ExtResource("1_y0ec8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(89, 88)
+scale = Vector2(0.264912, 0.264912)
+sprite_frames = ExtResource("2_y0ec8")
+animation = &"walk"

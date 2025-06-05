@@ -1,0 +1,51 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+# 导出的文件夹
+exports/
+export/
+builds/
+build/
+dist/
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*~
+*.import
+
+# 操作系统特定文件
+.DS_Store
+Thumbs.db
+
+# 编辑器特定文件
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 可执行文件和库
+*.dll
+*.so
+*.dylib
+*.exe
+
+# 日志文件
+*.log
+
+# 环境变量文件
+.env
+.env.*
+
+# UID相关文件
+*.uid
+.uid
+uid.ini
+*_uid_*

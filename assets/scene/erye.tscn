@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://um6y58ycy48u"]
+
+[ext_resource type="Script" uid="uid://bs61fl25ows1g" path="res://assets/script/erye.gd" id="1_mq6k3"]
+[ext_resource type="SpriteFrames" uid="uid://byhdvruonq4ye" path="res://assets/animated/erye.tres" id="2_ugci4"]
+[ext_resource type="Texture2D" uid="uid://bwp48siyu7pwm" path="res://assets/img/tangyifu/desk.png" id="3_utex8"]
+[ext_resource type="Texture2D" uid="uid://brlorn4d3gv8c" path="res://assets/img/erye/closestool_toilet_01.png" id="4_p3w3d"]
+
+[node name="erye" type="Node2D"]
+script = ExtResource("1_mq6k3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(65, 97)
+scale = Vector2(0.226478, 0.226478)
+sprite_frames = ExtResource("2_ugci4")
+animation = &"sit"
+autoplay = "idel"
+
+[node name="table" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(110.958, 131.125)
+scale = Vector2(0.367633, 0.429389)
+texture = ExtResource("3_utex8")
+
+[node name="wc" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(53.5, 110)
+scale = Vector2(0.6, 0.562162)
+texture = ExtResource("4_p3w3d")
+flip_h = true

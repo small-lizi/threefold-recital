@@ -1,0 +1,192 @@
+extends Node2D
+
+@export var move_speed: float = 100.0  # 可在编辑器调整的移动速度
+@export var ai_interval: float = 15.0  # AI行为间隔时间(秒)
+@export var animation_chances: Dictionary = {
+	"run": 0.1,
+	"punch": 0.2,
+	"down": 0.5
+}  # 动画触发概率字典，可在编辑器调整
+
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var window = get_window()
+@onready var ai_timer = Timer.new()
+
+# 声明所有需要的变量
+var is_running = false
+var current_direction = 1  # 1表示向右，-1表示向左
+var move_tween: Tween
+var is_dragging = false    # 右键拖动状态
+var drag_offset = Vector2.ZERO  # 拖动偏移量
+
+# 动画过渡规则
+var transition_rules = {
+	"down": "startup"
+}
+
+# AI行为状态
+enum AIState {IDLE, RUNNING}
+var current_ai_state = AIState.IDLE
+
+# 道具节点列表
+var prop_nodes = []
+
+func _ready():
+	animated_sprite.play("idel")
+	window.always_on_top = true
+	animated_sprite.animation_finished.connect(_on_animation_finished)
+	
+	# 设置AI计时器
+	add_child(ai_timer)
+	ai_timer.wait_time = ai_interval
+	ai_timer.timeout.connect(_on_ai_timeout)
+	ai_timer.start()
+
+func _input(event):
+	# 右键拖动窗口
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			stop_running()  # 拖动时停止跑步
+			is_dragging = true
+			drag_offset = window.position - DisplayServer.mouse_get_position()
+		else:
+			is_dragging = false
+
+	# 检查是否需要先播放过渡动画
+	if event is InputEventKey and event.pressed and not is_dragging and animated_sprite.animation in transition_rules:
+		var required_anim = transition_rules[animated_sprite.animation]
+		if animated_sprite.animation != required_anim:
+			animated_sprite.play(required_anim)
+			await animated_sprite.animation_finished
+	
+	if is_dragging and event is InputEventMouseMotion:
+		var new_pos = DisplayServer.mouse_get_position() + drag_offset
+		var screen_size = DisplayServer.screen_get_size()
+		var window_size = window.size
+		# 限制窗口在屏幕范围内
+		new_pos.x = clamp(new_pos.x, 0, screen_size.x - window_size.x)
+		new_pos.y = clamp(new_pos.y, 0, screen_size.y - window_size.y)
+		window.position = new_pos
+	
+	# 按键控制
+	if event is InputEventKey and event.pressed and not is_dragging:
+		match event.keycode:
+			KEY_1:
+				stop_running()
+				animated_sprite.play("idel")
+			KEY_2:
+				toggle_running()
+			KEY_3:
+				stop_running()
+				animated_sprite.play("punch")
+			KEY_4:
+				stop_running()
+				animated_sprite.play("down")
+
+func toggle_running():
+	# 检查是否需要先播放过渡动画
+	if animated_sprite.animation in transition_rules:
+		var required_anim = transition_rules[animated_sprite.animation]
+		if animated_sprite.animation != required_anim:
+			animated_sprite.play(required_anim)
+			await animated_sprite.animation_finished
+	
+	if is_running:
+		# 改变方向
+		current_direction *= -1
+		animated_sprite.flip_h = current_direction < 0
+		# 重新设置可见道具的方向
+		for prop in prop_nodes:
+			if has_node(prop) and get_node(prop).visible:
+				set_node_visibility(prop, true)
+	else:
+		# 开始跑步
+		is_running = true
+		animated_sprite.play("run")
+	
+	# 开始移动窗口
+	start_window_move()
+
+func start_window_move():
+	if move_tween:
+		move_tween.kill()
+	
+	var screen_size = DisplayServer.screen_get_size()
+	var window_size = window.size
+	
+	# 计算目标位置，确保不超出屏幕
+	var target_x = window.position.x + (screen_size.x * current_direction)
+	target_x = clamp(target_x, 0, screen_size.x - window_size.x)
+	
+	# 计算移动时间（根据速度和距离）
+	var distance = abs(target_x - window.position.x)
+	var duration = distance / move_speed
+	
+	move_tween = create_tween()
+	move_tween.tween_property(window, "position:x", target_x, duration)
+	move_tween.tween_callback(func():
+		# 到达边界后改变方向继续移动
+		current_direction *= -1
+		animated_sprite.flip_h = current_direction < 0
+		# 重新设置可见道具的方向
+		for prop in prop_nodes:
+			if has_node(prop) and get_node(prop).visible:
+				set_node_visibility(prop, true)
+		start_window_move()
+	)
+
+func stop_running():
+	if is_running:
+		is_running = false
+		if move_tween:
+			move_tween.kill()
+		animated_sprite.play("idel")
+
+func _on_animation_finished():
+	if animated_sprite.animation in ["punch", "startup"]:
+		animated_sprite.play("idel")
+		
+	# 动画结束后重置AI状态
+	current_ai_state = AIState.IDLE
+
+func _on_ai_timeout():
+	# 如果正在拖动或已经有动画在播放，则跳过
+	if is_dragging or animated_sprite.animation != "idel":
+		return
+	
+	# 随机决定AI行为
+	var rand_val = randf()
+	var cumulative_chance = 0.0
+	
+	for anim in animation_chances:
+		cumulative_chance += animation_chances[anim]
+		if rand_val < cumulative_chance:
+			if anim == "run":
+				current_ai_state = AIState.RUNNING
+				toggle_running()
+			else:
+				current_ai_state = AIState.IDLE
+				stop_running()
+				animated_sprite.play(anim)
+			break
+
+func set_node_visibility(node_name: String, is_visible: bool) -> void:
+	# 使用队列进行广度优先搜索
+	var queue = [self]
+	var target_node = null
+	
+	# 查找节点
+	while not queue.is_empty():
+		var current = queue.pop_front()
+		if current.name == node_name:
+			target_node = current
+			break
+		queue.append_array(current.get_children())
+	
+	if target_node:
+		target_node.visible = is_visible
+		# 如果节点可见且是Sprite2D，设置翻转
+		if is_visible and target_node is Sprite2D:
+			target_node.flip_h = current_direction < 0
+	else:
+		print("警告：找不到节点 ", node_name)

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://t1ul3awiyh2b"]
+
+[ext_resource type="Script" uid="uid://1fhonp8vcmce" path="res://assets/script/tangyifu.gd" id="1_ka2re"]
+[ext_resource type="SpriteFrames" uid="uid://dtfjxl8p25ori" path="res://assets/animated/tangyifu.tres" id="2_ka2re"]
+[ext_resource type="Texture2D" uid="uid://bwp48siyu7pwm" path="res://assets/img/tangyifu/desk.png" id="3_lmke0"]
+[ext_resource type="Texture2D" uid="uid://s21bmu5oktvh" path="res://assets/img/tangyifu/sofa_01.png" id="4_ecbkg"]
+[ext_resource type="Texture2D" uid="uid://tp0uygaefugm" path="res://assets/img/tangyifu/lamp_01.png" id="5_dcuxe"]
+
+[node name="tangyifu" type="Node2D"]
+script = ExtResource("1_ka2re")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(91, 97)
+scale = Vector2(0.226478, 0.226478)
+sprite_frames = ExtResource("2_ka2re")
+animation = &"disco"
+autoplay = "idel"
+
+[node name="desk" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(83.3401, 132.488)
+scale = Vector2(0.404759, 0.404759)
+texture = ExtResource("3_lmke0")
+
+[node name="sofa" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(101, 102.5)
+scale = Vector2(0.457143, 0.642857)
+texture = ExtResource("4_ecbkg")
+
+[node name="lamp" type="Sprite2D" parent="sofa"]
+visible = false
+position = Vector2(-177.187, 3.88889)
+texture = ExtResource("5_dcuxe")

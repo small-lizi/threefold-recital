@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3uscen7hulib"]
+
+[ext_resource type="Script" uid="uid://0gk3sfexhtal" path="res://assets/script/sanbao.gd" id="1_02et3"]
+[ext_resource type="SpriteFrames" uid="uid://ba0osy7ogukd6" path="res://assets/animated/sanbao.tres" id="2_02et3"]
+[ext_resource type="Texture2D" uid="uid://cg5qkyaqeuj5k" path="res://assets/img/sanbao/bigmap_longchair.png" id="3_jcf70"]
+[ext_resource type="Texture2D" uid="uid://ddf0lru2y6ieg" path="res://assets/img/sanbao/bed_chenw_01.png" id="4_my4n1"]
+
+[node name="sanbao" type="Node2D"]
+script = ExtResource("1_02et3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.308772, 0.308772)
+sprite_frames = ExtResource("2_02et3")
+animation = &"sleep"
+autoplay = "idel"
+frame_progress = 0.955985
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, 16.1932)
+
+[node name="chair" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(-1, 31)
+scale = Vector2(0.316197, 0.316197)
+texture = ExtResource("3_jcf70")
+
+[node name="bed" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(1.89063, 35.5)
+scale = Vector2(0.310096, 0.466346)
+texture = ExtResource("4_my4n1")
